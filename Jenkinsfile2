@@ -24,12 +24,6 @@ script {
 echo "Tests passed"
 }
 
-UH2C/ENSET Travaux pratiques/ Ingénierie des Infrastructures Bigdata et Cloud 2022/2023
-
-Pr. Kamal EL GUEMMAT
-
-16
-
 }
 }
 stage('Publish Image') {
