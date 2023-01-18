@@ -1,0 +1,50 @@
+pipeline {
+environment {
+registry = "kelguemmat/tp4"
+registryCredential = 'dockerhub'
+dockerImage = ''
+}
+agent any
+stages {
+stage('Cloning Git') {
+steps {
+git 'https://github.com/kelguemmat/tp4master21-22'
+}
+}
+stage('Building image') {
+steps{
+script {
+dockerImage = docker.build registry + ":$BUILD_NUMBER"
+}
+}
+}
+stage('Test image') {
+steps{
+script {
+echo "Tests passed"
+}
+
+UH2C/ENSET Travaux pratiques/ Ingénierie des Infrastructures Bigdata et Cloud 2022/2023
+
+Pr. Kamal EL GUEMMAT
+
+16
+
+}
+}
+stage('Publish Image') {
+steps{
+script {
+docker.withRegistry( '', registryCredential ) {
+dockerImage.push()
+}
+}
+}
+}
+stage('Deploy image') {
+steps{
+bat "docker run -d $registry:$BUILD_NUMBER"
+}
+}
+}
+}
